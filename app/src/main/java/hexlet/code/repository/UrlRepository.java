@@ -9,6 +9,8 @@ import java.util.List;
 import java.util.Optional;
 import hexlet.code.model.Url;
 
+import javax.naming.Name;
+
 public class UrlRepository extends BaseRepository {
     public static void save(Url url) throws SQLException {
         var sql = "INSERT INTO urls (name, createdAt) VALUES (?, ?)";
@@ -27,6 +29,43 @@ public class UrlRepository extends BaseRepository {
             } else {
                 throw new SQLException("DB have not returned an id after saving an entity");
             }
+        }
+    }
+
+    public static Optional<Url> find(Long id) throws SQLException {
+        var sql = "SELECT * FROM urls WHERE id = ?";
+        try (var conn = dataSource.getConnection();
+            var stmt = conn.prepareStatement(sql)) {
+            stmt.setLong(1, id);
+            var resultSet = stmt.executeQuery();
+            if (resultSet.next()) {
+                var name = resultSet.getString("name");
+                var createdAt = resultSet.getTimestamp("createdAt").toLocalDateTime();
+
+                var url = new Url(name, createdAt);
+                url.setId(id);
+                return Optional.of(url);
+            }
+            return Optional.empty();
+        }
+    }
+
+    public static List<Url> getEntities() throws SQLException {
+        var sql = "SELECT * FROM urls";
+        try (var conn = dataSource.getConnection();
+            var stmt = conn.prepareStatement(sql)) {
+            var resultSet = stmt.executeQuery();
+            var result = new ArrayList<Url>();
+            while (resultSet.next()) {
+                var id = resultSet.getLong("id");
+                var name = resultSet.getString("name");
+                var createdAt = resultSet.getTimestamp("createdAt").toLocalDateTime();
+
+                var url = new Url(name, createdAt);
+                url.setId(id);
+                result.add(url);
+            }
+            return result;
         }
     }
 }
