@@ -38,7 +38,7 @@ public class UrlRepository extends BaseRepository {
             var resultSet = stmt.executeQuery();
             if (resultSet.next()) {
                 var name = resultSet.getString("name");
-                var createdAt = resultSet.getTimestamp("createdAt").toLocalDateTime();
+                var createdAt = resultSet.getTimestamp("create_at").toLocalDateTime();
 
                 var url = new Url(name);
                 url.setCreatedAt(createdAt);
@@ -58,7 +58,7 @@ public class UrlRepository extends BaseRepository {
             while (resultSet.next()) {
                 var id = resultSet.getLong("id");
                 var name = resultSet.getString("name");
-                var createdAt = resultSet.getTimestamp("createdAt").toLocalDateTime();
+                var createdAt = resultSet.getTimestamp("create_at").toLocalDateTime();
 
                 var url = new Url(name);
                 url.setCreatedAt(createdAt);
