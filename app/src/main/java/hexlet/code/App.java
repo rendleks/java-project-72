@@ -22,8 +22,14 @@ import io.javalin.http.NotFoundResponse;
 import io.javalin.rendering.template.JavalinJte;
 import io.javalin.validation.ValidationException;
 
+import hexlet.code.repository.BaseRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 @Slf4j
 public class App {
+
+    private static final Logger LOG = LoggerFactory.getLogger(App.class);
 
     public static int getPort() {
         String port = System.getenv().getOrDefault("PORT", "7070");
@@ -32,7 +38,6 @@ public class App {
 
     public static void main(String[] args) throws IOException, SQLException {
         var app = getApp();
-
         app.start(getPort());
     }
 
@@ -50,20 +55,25 @@ public class App {
         }
     }
 
+    private static String getDataBaseUrl() {
+        return System.getenv().getOrDefault("JDBC_DATABASE_URL", "jdbc:h2:meme:project");
+    }
+
     public static Javalin getApp() throws  IOException, SQLException {
 
-//        var hikariConfig = new HikariConfig();
-//        hikariConfig.setJdbcUrl("jdbc:h2:mem:project;DB_CLOCE_DELAY=-1;");
-//
-//        var dataSource = new HikariDataSource(hikariConfig);
-//        var sql = readResourceFile("schema.sql");
+        var hikariConfig = new HikariConfig();
+        hikariConfig.setJdbcUrl(getDataBaseUrl());
 
-//        log.info(sql);
-//        try (var connection = dataSource.getConnection();
-//                var statement = connection.createStatement()) {
-//            statement.execute(sql);
-//        }
-//        BaseRepository.dataSource = dataSource;
+        var dataSource = new HikariDataSource(hikariConfig);
+
+        var sql = readResourceFile("schema.sql");
+
+        LOG.info(sql);
+        try (var connection = dataSource.getConnection();
+                var statement = connection.createStatement()) {
+            statement.execute(sql);
+        }
+        BaseRepository.dataSource = dataSource;
 
         var app =
                 Javalin.create(
