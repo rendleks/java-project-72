@@ -56,7 +56,7 @@ public class App {
     }
 
     private static String getDataBaseUrl() {
-        return System.getenv().getOrDefault("JDBC_DATABASE_URL", "jdbc:h2:meme:project");
+        return System.getenv().getOrDefault("JDBC_DATABASE_URL", "jdbc:h2:mem:project");
     }
 
     public static Javalin getApp() throws  IOException, SQLException {

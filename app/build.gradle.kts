@@ -16,6 +16,7 @@ repositories {
 }
 
 dependencies {
+    implementation("com.h2database:h2:2.5.250")
     implementation("org.slf4j:slf4j-api:2.0.17")
     implementation("org.slf4j:slf4j-simple:2.0.17")
     implementation("com.zaxxer:HikariCP:5.0.1")
