@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Optional;
 import hexlet.code.model.Url;
 
-import javax.naming.Name;
 
 public class UrlRepository extends BaseRepository {
     public static void save(Url url) throws SQLException {
@@ -17,10 +16,9 @@ public class UrlRepository extends BaseRepository {
         try (var conn = dataSource.getConnection();
             var preparedStatement =
                     conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-            preparedStatement.setString(1, url.getName());
             var createdAt = LocalDateTime.now();
+            preparedStatement.setString(1, url.getName());
             preparedStatement.setTimestamp(2, Timestamp.valueOf(createdAt));
-
             preparedStatement.executeUpdate();
             var generatedKeys = preparedStatement.getGeneratedKeys();
             if (generatedKeys.next()) {
@@ -42,7 +40,8 @@ public class UrlRepository extends BaseRepository {
                 var name = resultSet.getString("name");
                 var createdAt = resultSet.getTimestamp("createdAt").toLocalDateTime();
 
-                var url = new Url(name, createdAt);
+                var url = new Url(name);
+                url.setCreatedAt(createdAt);
                 url.setId(id);
                 return Optional.of(url);
             }
@@ -61,7 +60,8 @@ public class UrlRepository extends BaseRepository {
                 var name = resultSet.getString("name");
                 var createdAt = resultSet.getTimestamp("createdAt").toLocalDateTime();
 
-                var url = new Url(name, createdAt);
+                var url = new Url(name);
+                url.setCreatedAt(createdAt);
                 url.setId(id);
                 result.add(url);
             }
