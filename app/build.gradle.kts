@@ -1,7 +1,8 @@
 plugins {
     application
     id("io.freefair.lombok") version "9.8.0"
-    id("com.github.johnrengelman.shadow") version "8.1.1"
+//    id("com.github.johnrengelman.shadow") version "8.1.1"
+    id("com.gradleup.shadow") version "8.3.11"
 }
 
 application {
