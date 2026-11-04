@@ -4,11 +4,12 @@ dev:
 clean:
 	./gradlew clean
 
-build:
-	./gradlew clean build
-
+# проверка готовит приложение к тестам
 setup: build-css
 	./gradlew installDist
+
+# образ на render собирается этой целью
+build: setup
 
 build-css:
 	npm ci
