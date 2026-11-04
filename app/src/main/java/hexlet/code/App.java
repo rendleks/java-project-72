@@ -68,9 +68,10 @@ public class App {
             var codeResolver = new DirectoryCodeResolver(TEMLATES_PATH);
             return TemplateEngine.create(codeResolver, JTE_CLASSES_PATH, ContentType.Html);
         }
-        var classLoader = App.class.getClassLoader();
-        var codeResolver = new ResourceCodeResolver("templates", classLoader);
-        return TemplateEngine.create(codeResolver, ContentType.Html);
+        ClassLoader classLoader = App.class.getClassLoader();
+        ResourceCodeResolver codeResolver = new ResourceCodeResolver("templates", classLoader);
+        TemplateEngine templateEngine = TemplateEngine.create(codeResolver, ContentType.Html);
+        return templateEngine;
     }
 
     private static String readResourceFile(String fileName) throws IOException {
