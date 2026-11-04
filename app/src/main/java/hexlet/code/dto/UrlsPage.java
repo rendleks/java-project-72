@@ -8,5 +8,5 @@ import hexlet.code.model.Url;
 @AllArgsConstructor
 @Getter
 public class UrlsPage {
-    public List<Url> urls;
+    private List<Url> urls;
 }

@@ -12,7 +12,7 @@ import hexlet.code.model.Url;
 
 public class UrlRepository extends BaseRepository {
     public static void save(Url url) throws SQLException {
-        var sql = "INSERT INTO urls (name, createdAt) VALUES (?, ?)";
+        var sql = "INSERT INTO urls (name, created_at) VALUES (?, ?)";
         try (var conn = dataSource.getConnection();
             var preparedStatement =
                     conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
@@ -38,7 +38,7 @@ public class UrlRepository extends BaseRepository {
             var resultSet = stmt.executeQuery();
             if (resultSet.next()) {
                 var name = resultSet.getString("name");
-                var createdAt = resultSet.getTimestamp("create_at").toLocalDateTime();
+                var createdAt = resultSet.getTimestamp("created_at").toLocalDateTime();
 
                 var url = new Url(name);
                 url.setCreatedAt(createdAt);
@@ -58,7 +58,7 @@ public class UrlRepository extends BaseRepository {
             while (resultSet.next()) {
                 var id = resultSet.getLong("id");
                 var name = resultSet.getString("name");
-                var createdAt = resultSet.getTimestamp("create_at").toLocalDateTime();
+                var createdAt = resultSet.getTimestamp("created_at").toLocalDateTime();
 
                 var url = new Url(name);
                 url.setCreatedAt(createdAt);

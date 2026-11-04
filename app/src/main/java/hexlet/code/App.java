@@ -1,7 +1,10 @@
 package hexlet.code;
 
 import gg.jte.resolve.DirectoryCodeResolver;
+import hexlet.code.controller.UrlsController;
 import hexlet.code.dto.BasePage;
+import hexlet.code.model.Url;
+import hexlet.code.repository.UrlRepository;
 import io.javalin.Javalin;
 import io.javalin.http.Context;
 import io.javalin.http.staticfiles.Location;
@@ -123,12 +126,12 @@ public class App {
                                     });
 
                             config.routes.get("/", ctx -> {
-
                                 var page = new BasePage();
-                                page.setFlash("Hi, I'm progger on java!");
-                                ctx.render("page.jte", Map.of("page", page));
-//                               ctx.result("Hi, I am Progger!");
+                                ctx.render("index.jte");
                             });
+
+                            config.routes.post("/urls", UrlsController::create);
+                            config.routes.get("/urls", UrlsController::index);
                         }
                 );
         return app;

@@ -15,33 +15,22 @@
     @if(page != null && page.getFlash() != null)
         <p>${page.getFlash()}</p>
     @endif
-    <nav>
-        <ul>
-            <li>Анализатор страниц</li>
-            <li><a href="#">Главная</a></li>
-            <li><a href="#">Сайты</a></li>
-        </ul>
-    </nav>
-    <main>
-    <div class="mx-auto max-w-3xl rounded-lg border border-gray-200 bg-gray-50 p-10">
-        <h1 class="text-5xl font-light">Анализатор страниц</h1>
-        <p class="mt-2 mb-6 text-xl text-gray-600">Бесплатно проверяйте сайты на SEO пригодность</p>
-        <form action="/urls" method="post" class="flex flex-wrap items-start gap-3">
-            <div class="grow">
-                <label for="url-name" class="sr-only">Url для проверки</label>
-                <input
-                        id="url-name"
-                        type="text"
-                        name="url"
-                        class="w-full rounded text-lg"
-                        placeholder="https://www.example.com"
-                >
+    <header class="w-full bg-[#1e222b] text-gray-300 font-sans px-6 py-4 flex items-center border-b border-gray-800">
+        <div class="max-w-7xl w-full mx-auto flex items-center gap-8">
+            <div class="text-white font-medium text-base tracking-wide whitespace-nowrap cursor-pointer">
+                Анализатор страниц
             </div>
-            <input type="submit"
-                   class="cursor-pointer rounded bg-blue-600 px-8 py-2 text-lg font-medium text-white uppercase hover:bg-blue-700"
-                   value="Проверить">
-        </form>
-    </div>
+            <nav class="flex items-center gap-6 text-sm text-gray-400">
+                <a href="/" class="hover:text-white transition-colors duration-200">
+                    Главная
+                </a>
+                <a href="/urls" class="hover:text-white transition-colors duration-200">
+                    Сайты
+                </a>
+            </nav>
+        </div>
+    </header>
+    <main>
     ${content}
     </main>
 </body>
