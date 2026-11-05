@@ -1,6 +1,7 @@
 package hexlet.code.model;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public final class Url {
     private Long id;
@@ -19,8 +20,8 @@ public final class Url {
         this.name = name;
     }
 
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
+    public String getCreatedAt() {
+        return createdAt.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
     }
 
     public void setCreatedAt(LocalDateTime createdAt) {
