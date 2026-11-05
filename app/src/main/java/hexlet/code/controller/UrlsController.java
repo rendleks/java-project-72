@@ -28,5 +28,16 @@ public class UrlsController {
         ctx.redirect("/urls");
     }
 
+    public static void show(Context ctx) throws SQLException {
+        var id = ctx.pathParamAsClass("id", Long.class).get();
+
+        var url = UrlRepository.find(id)
+                .orElseThrow(
+                        () -> new NotFoundResponse(
+                                "Entity with id = " + id + " not found"));
+        var page = new UrlPage(url);
+        ctx.render("urls/show.jte", Map.of("page", page));
+    }
+
 
 }

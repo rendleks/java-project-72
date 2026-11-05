@@ -132,6 +132,7 @@ public class App {
 
                             config.routes.post("/urls", UrlsController::create);
                             config.routes.get("/urls", UrlsController::index);
+                            config.routes.get("/urls/{id}", UrlsController::show);
                         }
                 );
         return app;
