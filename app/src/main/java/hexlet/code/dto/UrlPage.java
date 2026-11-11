@@ -6,6 +6,6 @@ import hexlet.code.model.Url;
 
 @AllArgsConstructor
 @Getter
-public class UrlPage {
-    public Url url;
+public class UrlPage extends BasePage {
+    private Url url;
 }

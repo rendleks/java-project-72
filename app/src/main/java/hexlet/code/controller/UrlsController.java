@@ -13,9 +13,10 @@ import java.util.Map;
 
 public class UrlsController {
     public static void index(Context ctx) throws SQLException {
-        String flash = ctx.consumeSessionAttribute("flash");
         var urls = UrlRepository.getEntities();
         var page = new UrlsPage(urls);
+        String flash = ctx.consumeSessionAttribute("flash");
+        page.setFlash(flash);
         ctx.render("urls/index.jte", Map.of("page", page));
     }
 
@@ -24,7 +25,7 @@ public class UrlsController {
 
         var url = new Url(name);
         UrlRepository.save(url);
-        ctx.sessionAttribute("flash", "Url has been added");
+        ctx.sessionAttribute("flash", "Страница успешно добавлена");
         ctx.redirect("/urls");
     }
 
@@ -36,6 +37,8 @@ public class UrlsController {
                         () -> new NotFoundResponse(
                                 "Entity with id = " + id + " not found"));
         var page = new UrlPage(url);
+        String flash = ctx.consumeSessionAttribute("flash");
+        page.setFlash(flash);
         ctx.render("urls/show.jte", Map.of("page", page));
     }
 
