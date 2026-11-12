@@ -125,10 +125,7 @@ public class App {
                                         ctx.contentType("text/html; charset=utf-8");
                                     });
 
-                            config.routes.get("/", ctx -> {
-                                var page = new BasePage();
-                                ctx.render("index.jte");
-                            });
+                            config.routes.get("/", UrlsController::root);
 
                             config.routes.post("/urls", UrlsController::create);
                             config.routes.get("/urls", UrlsController::index);

@@ -10,7 +10,9 @@ jte-classes
 node_modules/
 
 ### IntelliJ IDEA ###
+../.DS_Store
 ../.idea/
+.idea/
 .idea/modules.xml
 .idea/jarRepositories.xml
 .idea/compiler.xml
