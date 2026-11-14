@@ -39,15 +39,26 @@ public class UrlsController {
         try {
             URI uri = URI.create(name);
             URL url = uri.toURL();
+            var urlName = url.getProtocol() + "://" + url.getHost();
 
-            var urlSave = new Url(url.getProtocol() + "://" + url.getHost());
+            if (!UrlRepository.find(urlName).isEmpty()) {
+                var page = new BasePage();
+                page.setFlash("Страница уже существует");
+                ctx.render("index.jte", Map.of("page", page));
+                return;
+            }
+
+            var urlSave = new Url(urlName);
             UrlRepository.save(urlSave);
-            ctx.sessionAttribute("flash", "Страница успешно добавлена");
-            ctx.redirect("/urls");
+
+            var page = new UrlPage(urlSave);
+            page.setFlash("Страница успешно добавлена");
+            ctx.render("urls/show.jte", Map.of("page", page));
         } catch (Exception e) {
             System.out.println(e.getMessage());
             var page = new BasePage();
             page.setFlash("Некорректный URL");
+            ctx.status(422);
             ctx.render("index.jte", Map.of("page", page));
         }
     }
