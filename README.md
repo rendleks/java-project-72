@@ -1,6 +1,6 @@
 # Анализатор страниц (Java)
 
-[![hexlet-check](https://github.com/rendleks/java-project-72/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/rendleks/java-project-72/actions)
+[![hexlet-check](https://github.com/rendleks/java-project-72/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/rendleks/java-project-72/actions) [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=rendleks_java-project-72&metric=coverage)](https://sonarcloud.io/summary/new_code?id=rendleks_java-project-72)
 
 Создадите полноценное веб-приложение, которое выполняет запросы по сети и сохраняет данные в базу данных. Настроите CI и выполните деплой.
 
