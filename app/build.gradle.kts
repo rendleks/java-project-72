@@ -25,9 +25,12 @@ dependencies {
     implementation("io.javalin:javalin-rendering-jte:7.2.3")
     implementation("io.javalin:javalin:7.2.3")
     implementation("io.javalin:javalin-rendering:6.1.3")
+    implementation("com.konghq:unirest-java:3.14.5")
 
 
     testImplementation(platform("org.junit:junit-bom:5.10.0"))
+    testImplementation("org.assertj:assertj-core:3.25.1")
+    testImplementation("io.javalin:javalin-testtools:6.1.4")
     testImplementation("org.junit.jupiter:junit-jupiter")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
