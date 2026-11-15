@@ -4,6 +4,9 @@ dev:
 clean:
 	./gradlew clean
 
+test:
+	./gradlew test --info
+
 # проверка готовит приложение к тестам
 setup: build-css
 	./gradlew installDist
