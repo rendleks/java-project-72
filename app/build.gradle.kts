@@ -3,6 +3,7 @@ plugins {
     id("io.freefair.lombok") version "9.8.0"
 //    id("com.github.johnrengelman.shadow") version "8.1.1"
     id("com.gradleup.shadow") version "8.3.11"
+    id("org.sonarqube") version "7.5.0.8588"
 }
 
 application {
@@ -33,6 +34,13 @@ dependencies {
     testImplementation("io.javalin:javalin-testtools:6.1.4")
     testImplementation("org.junit.jupiter:junit-jupiter")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+}
+
+sonar {
+  properties {
+    property("sonar.projectKey", "rendleks_java-project-72")
+    property("sonar.organization", "rendleks")
+  }
 }
 
 tasks.test {
