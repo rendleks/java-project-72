@@ -1,0 +1,44 @@
+[versions]
+# Плагины
+lombok = "9.8.0"
+shadow = "8.3.11"
+sonarqube = "7.5.0.8588"
+
+# Библиотеки
+h2 = "2.5.250"
+slf4j = "2.0.17"
+hikari = "5.0.1"
+jte = "3.2.4"
+javalin = "7.2.3"
+unirest = "3.14.5"
+junitBom = "5.10.0"
+assertj = "3.25.1"
+
+[libraries]
+# База данных и пул соединений
+h2 = { group = "com.h2database", name = "h2", version.ref = "h2" }
+hikaricp = { group = "com.zaxxer", name = "HikariCP", version.ref = "hikari" }
+
+# Логирование
+slf4j-api = { group = "org.slf4j", name = "slf4j-api", version.ref = "slf4j" }
+slf4j-simple = { group = "org.slf4j", name = "slf4j-simple", version.ref = "slf4j" }
+
+# Веб-фреймворк и шаблонизатор
+javalin = { group = "io.javalin", name = "javalin", version.ref = "javalin" }
+javalin-rendering-jte = { group = "io.javalin", name = "javalin-rendering-jte", version.ref = "javalin" }
+javalin-testtools = { group = "io.javalin", name = "javalin-testtools", version.ref = "javalin" }
+jte = { group = "gg.jte", name = "jte", version.ref = "jte" }
+
+# HTTP-клиент
+unirest-java = { group = "com.konghq", name = "unirest-java", version.ref = "unirest" }
+
+# Тестирование (версии для junit-jupiter и launcher подтянутся из junit-bom)
+junit-bom = { group = "org.junit", name = "junit-bom", version.ref = "junitBom" }
+junit-jupiter = { group = "org.junit.jupiter", name = "junit-jupiter" }
+junit-platform-launcher = { group = "org.junit.platform", name = "junit-platform-launcher" }
+assertj-core = { group = "org.assertj", name = "assertj-core", version.ref = "assertj" }
+
+[plugins]
+lombok = { id = "io.freefair.lombok", version.ref = "lombok" }
+shadow = { id = "com.gradleup.shadow", version.ref = "shadow" }
+sonarqube = { id = "org.sonarqube", version.ref = "sonarqube" }
