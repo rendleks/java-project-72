@@ -1,5 +1,6 @@
 plugins {
     application
+    jacoco
     alias(libs.plugins.lombok)
     alias(libs.plugins.shadow)
     alias(libs.plugins.sonarqube)
@@ -37,9 +38,21 @@ sonar {
   properties {
     property("sonar.projectKey", "rendleks_java-project-72")
     property("sonar.organization", "rendleks")
+
+    val buildDir = project.layout.buildDirectory.get().asFile
+    property("sonar.coverage.jacoco.xmlReportPaths", "$buildDir/reports/jacoco/test/jacocoTestReport.xml")
   }
+}
+
+tasks.jacocoTestReport {
+    dependsOn(tasks.test)
+    reports {
+        xml.required.set(true)
+        html.required.set(true)
+    }
 }
 
 tasks.test {
     useJUnitPlatform()
+    finalizedBy(tasks.jacocoTestReport)
 }
