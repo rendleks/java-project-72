@@ -55,7 +55,6 @@ public class UrlsController {
             page.setFlash("Страница успешно добавлена");
             ctx.render("urls/show.jte", Map.of("page", page));
         } catch (Exception e) {
-            System.out.println(e.getMessage());
             var page = new BasePage();
             page.setFlash("Некорректный URL");
             ctx.status(422);
