@@ -29,12 +29,6 @@ public class AppTest {
                     true,
                     HttpClient.newBuilder().followRedirects(HttpClient.Redirect.NORMAL).build());
 
-
-    @Test
-    void testInit() {
-        assertThat(true).isEqualTo(true);
-    }
-
     private static Javalin app;
 
     @BeforeEach
