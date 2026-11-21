@@ -96,8 +96,7 @@ public class App {
         }
         BaseRepository.dataSource = dataSource;
 
-        var app =
-                Javalin.create(
+        return Javalin.create(
                         config -> {
                             if (!isProduction()) {
                                 config.bundledPlugins.enableDevLogging();
@@ -123,6 +122,5 @@ public class App {
                             config.routes.get("/urls/{id}", UrlsController::show);
                         }
                 );
-        return app;
     }
 }
