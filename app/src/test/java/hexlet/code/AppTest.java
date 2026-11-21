@@ -93,4 +93,27 @@ public class AppTest {
                 });
     }
 
+    @Test
+    public void testUrlPage() {
+        JavalinTest.test(
+                app,
+                (server, client) -> {
+                    var response = client.get("/urls/1");
+                    assertThat(response.code()).isEqualTo(200);
+                    assertThat(response.body().string()).contains("https://ya.ru");
+                }
+        );
+    }
+
+    @Test
+    public void testUrlNotFound() throws Exception {
+        JavalinTest.test(
+                app,
+                (server, client) -> {
+                    var response = client.get("/urls/9999999");
+                    assertThat(response.code()).isEqualTo(404);
+                }
+        );
+    }
+
 }
