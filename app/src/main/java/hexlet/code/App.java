@@ -2,11 +2,7 @@ package hexlet.code;
 
 import gg.jte.resolve.DirectoryCodeResolver;
 import hexlet.code.controller.UrlsController;
-import hexlet.code.dto.BasePage;
-import hexlet.code.model.Url;
-import hexlet.code.repository.UrlRepository;
 import io.javalin.Javalin;
-import io.javalin.http.Context;
 import io.javalin.http.staticfiles.Location;
 import lombok.extern.slf4j.Slf4j;
 
@@ -17,7 +13,6 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.sql.SQLException;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 import com.zaxxer.hikari.HikariConfig;
@@ -26,10 +21,7 @@ import com.zaxxer.hikari.HikariDataSource;
 import gg.jte.ContentType;
 import gg.jte.TemplateEngine;
 import gg.jte.resolve.ResourceCodeResolver;
-import io.javalin.Javalin;
-import io.javalin.http.NotFoundResponse;
 import io.javalin.rendering.template.JavalinJte;
-import io.javalin.validation.ValidationException;
 
 import hexlet.code.repository.BaseRepository;
 import org.slf4j.Logger;
