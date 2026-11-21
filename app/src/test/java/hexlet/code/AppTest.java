@@ -106,7 +106,7 @@ public class AppTest {
     }
 
     @Test
-    public void testUrlNotFound() throws Exception {
+    public void testUrlNotFound() {
         JavalinTest.test(
                 app,
                 (server, client) -> {
