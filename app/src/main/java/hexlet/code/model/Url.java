@@ -16,9 +16,6 @@ public final class Url {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
 
     public String getCreatedAt() {
         return createdAt.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
