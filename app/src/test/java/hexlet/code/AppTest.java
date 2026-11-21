@@ -16,12 +16,10 @@ import java.sql.SQLException;
 import java.util.stream.Collectors;
 
 
-import hexlet.code.model.Url;
 import hexlet.code.repository.BaseRepository;
-import hexlet.code.repository.UrlRepository;
 import org.junit.jupiter.api.*;
 
-public class AppTest {
+class AppTest {
 
     private static final TestConfig FOLLOW_REDIRECTS =
             new TestConfig(
@@ -32,7 +30,7 @@ public class AppTest {
     private static Javalin app;
 
     @BeforeEach
-    public final void setUp() throws  IOException, SQLException {
+    final void setUp() throws  IOException, SQLException {
         app = App.getApp();
         runScript("truncate.sql");
         runScript("seed-test-db.sql");
@@ -52,7 +50,7 @@ public class AppTest {
     }
 
     @Test
-    public void testMainPage() {
+    void testMainPage() {
         JavalinTest.test(
                 app,
                 (server, client) -> {
@@ -64,7 +62,7 @@ public class AppTest {
     }
 
     @Test
-    public void testUrlsPage() {
+    void testUrlsPage() {
         JavalinTest.test(
                 app,
                 (server, client) -> {
@@ -75,7 +73,7 @@ public class AppTest {
     }
 
     @Test
-    public void testCreateUrl() {
+    void testCreateUrl() {
         JavalinTest.test(
                 app,
                 FOLLOW_REDIRECTS,
@@ -88,7 +86,7 @@ public class AppTest {
     }
 
     @Test
-    public void testUrlPage() {
+    void testUrlPage() {
         JavalinTest.test(
                 app,
                 (server, client) -> {
@@ -100,7 +98,7 @@ public class AppTest {
     }
 
     @Test
-    public void testUrlNotFound() {
+    void testUrlNotFound() {
         JavalinTest.test(
                 app,
                 (server, client) -> {
