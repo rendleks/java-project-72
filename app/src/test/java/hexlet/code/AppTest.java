@@ -36,28 +36,10 @@ public class AppTest {
     }
 
     private static Javalin app;
-    private static String baseUrl;
-
-//    @BeforeAll
-//    public static void beforeAll() throws IOException, SQLException {
-//        app = App.getApp();
-//        app.start(0);
-//        int port = app.port();
-//        baseUrl = "http://localhost:" + port;
-//    }
-//
-//    @AfterAll
-//    public static void afterAll() {
-//        app.stop();
-//    }
 
     @BeforeEach
     public final void setUp() throws  IOException, SQLException {
         app = App.getApp();
-    }
-
-    @BeforeEach
-    void beforeEach() throws IOException, SQLException {
         runScript("truncate.sql");
         runScript("seed-test-db.sql");
     }
@@ -96,6 +78,19 @@ public class AppTest {
                     assertThat(response.code()).isEqualTo(200);
                 }
         );
+    }
+
+    @Test
+    public void testCreateUrl() {
+        JavalinTest.test(
+                app,
+                FOLLOW_REDIRECTS,
+                (server, client) -> {
+                    var requestBody = "url=https://www.example.com";
+                    var response = client.post("/urls", requestBody);
+                    assertThat(response.code()).isEqualTo(200);
+                    assertThat(response.body().string()).contains("https://www.example.com");
+                });
     }
 
 }
