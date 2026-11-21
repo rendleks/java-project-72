@@ -2,27 +2,33 @@ package hexlet.code;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import hexlet.code.repository.BaseRepository;
 import io.javalin.Javalin;
 import io.javalin.testtools.JavalinTest;
 import io.javalin.testtools.TestConfig;
 
+import java.net.http.HttpClient;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
 import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
 import java.util.stream.Collectors;
 
+
 import hexlet.code.model.Url;
+import hexlet.code.repository.BaseRepository;
 import hexlet.code.repository.UrlRepository;
-import kong.unirest.Unirest;
-import kong.unirest.HttpResponse;
 import org.junit.jupiter.api.*;
 
 public class AppTest {
+
+    private static final TestConfig FOLLOW_REDIRECTS =
+            new TestConfig(
+                    true,
+                    true,
+                    HttpClient.newBuilder().followRedirects(HttpClient.Redirect.NORMAL).build());
+
 
     @Test
     void testInit() {
@@ -32,17 +38,22 @@ public class AppTest {
     private static Javalin app;
     private static String baseUrl;
 
-    @BeforeAll
-    public static void beforeAll() throws IOException, SQLException {
-        app = App.getApp();
-        app.start(0);
-        int port = app.port();
-        baseUrl = "http://localhost:" + port;
-    }
+//    @BeforeAll
+//    public static void beforeAll() throws IOException, SQLException {
+//        app = App.getApp();
+//        app.start(0);
+//        int port = app.port();
+//        baseUrl = "http://localhost:" + port;
+//    }
+//
+//    @AfterAll
+//    public static void afterAll() {
+//        app.stop();
+//    }
 
-    @AfterAll
-    public static void afterAll() {
-        app.stop();
+    @BeforeEach
+    public final  void setUp() throws  IOException, SQLException {
+        app = App.getApp();
     }
 
     @BeforeEach
@@ -59,28 +70,32 @@ public class AppTest {
             sql = reader.lines().collect(Collectors.joining("\n"));
         }
         try (var connection = BaseRepository.dataSource.getConnection();
-            var statement = connection.createStatement()) {
+             var statement = connection.createStatement()) {
             statement.execute(sql);
         }
     }
 
-    @Nested
-    class RootTest {
-
-        @Test
-        void testIndex() {
-            HttpResponse<String> response = Unirest.get(baseUrl).asString();
-            assertThat(response.getStatus()).isEqualTo(200);
-            assertThat(response.getBody()).contains("Анализатор страниц");
-        }
-
-        @Test
-        void testUrls() {
-            HttpResponse<String> response = Unirest.get(baseUrl + "/urls").asString();
-//            assertThat(response.getStatus()).isEqualTo(200);
-//            assertThat(response.getBody()).contains("Сайты");
-        }
+    @Test
+    public void testMainPage() {
+        JavalinTest.test(
+                app,
+                (server, client) -> {
+                    var response = client.get("/");
+                    assertThat(response.code()).isEqualTo(200);
+                    assertThat(response.body().string()).contains("Анализатор страниц");
+                }
+        );
     }
 
+    @Test
+    public void testUrlsPage() {
+        JavalinTest.test(
+                app,
+                (server, client) -> {
+                    var response = client.get("/urls");
+                    assertThat(response.code()).isEqualTo(200);
+                }
+        );
+    }
 
 }

@@ -30,6 +30,7 @@ public class UrlsController {
         var page = new UrlsPage(urls);
         String flash = ctx.consumeSessionAttribute("flash");
         page.setFlash(flash);
+        ctx.status(200);
         ctx.render("urls/index.jte", Map.of("page", page));
     }
     
