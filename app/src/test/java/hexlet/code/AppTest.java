@@ -86,6 +86,34 @@ class AppTest {
     }
 
     @Test
+    void testUrlExists() {
+        JavalinTest.test(
+                app,
+                (server, client) -> {
+                    var requestBody = "url=https://ya.ru";
+                    var response = client.post("/urls", requestBody);
+                    assertThat(response.code()).isEqualTo(200);
+                    assertThat(response.body().string()).contains("Страница уже существует");
+                }
+        );
+    }
+
+    @Test
+    void  testInvalidUrl() {
+        JavalinTest.test(
+                app,
+                (server, client) -> {
+                    var requestBody = "url=ya.ru";
+                    var response = client.post("/urls", requestBody);
+                    assertThat(response.code()).isEqualTo(422);
+                    assertThat(response.body().string()).contains("Некорректный URL");
+                }
+        );
+    }
+
+
+
+    @Test
     void testUrlPage() {
         JavalinTest.test(
                 app,
