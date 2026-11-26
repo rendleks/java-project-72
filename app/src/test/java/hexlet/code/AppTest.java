@@ -112,7 +112,6 @@ class AppTest {
     }
 
 
-
     @Test
     void testUrlPage() {
         JavalinTest.test(
@@ -125,6 +124,7 @@ class AppTest {
         );
     }
 
+
     @Test
     void testUrlNotFound() {
         JavalinTest.test(
@@ -134,6 +134,13 @@ class AppTest {
                     assertThat(response.code()).isEqualTo(404);
                 }
         );
+    }
+
+
+    @Test
+    void testGetPort() {
+        var testApp = new App();
+        assertThat(testApp.getPort()).isEqualTo(7070);
     }
 
 }
